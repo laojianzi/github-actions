@@ -7,6 +7,7 @@ comment=$4
 event=$(echo $GITHUB_REF | cut -d '/' -f 2)
 
 echo "/bin/covergates upload --report $report --type $format $file"
+echo $(git log | head)
 
 /bin/covergates upload --report $report --type $format $file
 
