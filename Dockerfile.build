@@ -4,6 +4,6 @@ RUN apk --update add util-linux-dev
 RUN apk --update add gcc g++
 WORKDIR /go/src/github.com/covergates/covergates
 COPY . .
-RUN CGO_ENABLED=1 GOOS=linux go build -v -o covergates ./cmd/cli
+RUN CGO_ENABLED=1 GOOS=linux go build -v -o covergates -ldflags="-X main.CoverGatesAPI=https://covergates.com/api/v1" ./cmd/cli
 FROM alpine:3.10
 COPY --from=go-build /go/src/github.com/covergates/covergates/covergates /bin/covergates
