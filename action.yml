@@ -1,0 +1,25 @@
+name: "covergates actions"
+description: "push coverage report to covergates"
+inputs:
+  report-id:
+    description: "covergates report id of your repository"
+    required: true
+  report-type:
+    description: "coverage report type"
+    required: true
+  report-file:
+    description: "coverage report file path"
+    default: "./"
+    required: true
+  pull-request:
+    description: "leave comment on pull request or not"
+    required: false
+    default: ""
+runs:
+  using: docker
+  image: Dockerfile
+  args:
+    - ${{ inputs.report-id }}
+    - ${{ inputs.report-type }}
+    - ${{ inputs.report-file }}
+    - ${{ inputs.pull-request }}
