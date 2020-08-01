@@ -6,7 +6,7 @@ jobs:
     name: Covergates
     steps:
       - name: report
-        uses: covergates/github-actions@v0.1
+        uses: covergates/github-actions@v0.2
         with:
           report-id: "bsinj7a23akg009ii0u0"
           report-type: "go"
