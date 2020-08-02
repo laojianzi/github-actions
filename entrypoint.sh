@@ -8,6 +8,7 @@ event=$(echo $GITHUB_REF | cut -d '/' -f 2)
 
 echo "/bin/covergates upload --report $report --type $format $file"
 echo $(git log | head)
+echo $GITHUB_SHA
 
 /bin/covergates upload --report $report --type $format $file
 
