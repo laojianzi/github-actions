@@ -8,7 +8,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: report
-        uses: covergates/github-actions@v0.3
+        uses: covergates/github-actions@v0.7
         with:
           report-id: "bsinj7a23akg009ii0u0"
           report-type: "go"
