@@ -1,5 +1,3 @@
-# Test Action
-
 # github-actions
 
 This actions assist with uploading report to [covergates.com](https://covergates.com)
