@@ -1,16 +1,14 @@
 #!/bin/sh -l
-
+set -e
 report=$1
 format=$2
 file=$3
 comment=$4
 event=$(echo $GITHUB_REF | cut -d '/' -f 2)
 
-echo "/bin/covergates upload --report $report --type $format $file"
-echo $(git log | head)
-echo $GITHUB_SHA
-echo $GITHUB_HEAD_REF
+echo "commit: $GITHUB_SHA ref: $GITHUB_HEAD_REF"
 
+echo "/bin/covergates upload --report $report --type $format $file"
 /bin/covergates upload --report $report --type $format $file
 
 if [[ -n $comment ]] && [[ "$event" == "pull" ]]; then
