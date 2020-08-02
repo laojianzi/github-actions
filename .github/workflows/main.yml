@@ -5,8 +5,10 @@ jobs:
     runs-on: ubuntu-latest
     name: Covergates
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
       - name: report
-        uses: covergates/github-actions@v1
+        uses: covergates/github-actions@v0.3
         with:
           report-id: "bsinj7a23akg009ii0u0"
           report-type: "go"
