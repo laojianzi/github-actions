@@ -16,10 +16,7 @@ inputs:
     required: false
     default: ""
 runs:
-  using: docker
-  image: Dockerfile
-  args:
-    - ${{ inputs.report-id }}
-    - ${{ inputs.report-type }}
-    - ${{ inputs.report-file }}
-    - ${{ inputs.pull-request }}
+  using: composite
+  run: |
+    CGO_ENABLED=1 go build -v -o /bin/covergates -ldflags="-X main.CoverGatesAPI=https://covergates.com/api/v1" ./cmd/cli
+    ${{ github.action_path }}/covergates.sh ${{ inputs.report-id }} ${{ inputs.report-type }} ${{ inputs.report-file }} ${{ inputs.pull-request }}
