@@ -2,15 +2,21 @@ name: Main
 on: [pull_request]
 jobs:
   covergates:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        go: [1.16, 1.17]
+        os: [macos-latest, windows-latest, ubuntu-latest]
     name: Covergates
     steps:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Report
-        uses: laojianzi/github-actions@v1
+        uses: laojianzi/github-actions@v1.1.0
         with:
-          report-id: "bsinj7a23akg009ii0u0"
+          report-id: "c6o73bi23akg008dffq0"
           report-type: "go"
           report-file: "./testdata/coverage.out"
           pull-request: "true"
+          install-go: ${{ matrix.go }}

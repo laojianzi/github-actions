@@ -15,8 +15,22 @@ inputs:
     description: "leave comment on pull request or not"
     required: false
     default: ""
+  install-go:
+    description: "install and setup go with version, default skip install"
+    required: false
+    default: ""
 runs:
   using: composite
-  run: |
-    CGO_ENABLED=1 go build -v -o /bin/covergates -ldflags="-X main.CoverGatesAPI=https://covergates.com/api/v1" ./cmd/cli
-    ${{ github.action_path }}/covergates.sh ${{ inputs.report-id }} ${{ inputs.report-type }} ${{ inputs.report-file }} ${{ inputs.pull-request }}
+  steps:
+    - uses: actions/setup-go@v2
+      if: ${{ inputs.install-go != ''}}
+      with:
+        go-version: ${{ inputs.install-go }}
+    - run: |
+        echo "$(go env GOPATH)/bin" >> $GITHUB_PATH
+        echo "$(go env GOROOT)/bin" >> $GITHUB_PATH
+        go install github.com/covergates/covergates/cmd/cli@latest && mv $(go env GOPATH)/bin/cli $(go env GOPATH)/bin/covergates
+        $GITHUB_ACTION_PATH/covergates.sh ${{ inputs.report-id }} ${{ inputs.report-type }} ${{ inputs.report-file }} ${{ inputs.pull-request }}
+      shell: bash
+      env:
+        API_URL: "https://covergates.com/api/v1"
